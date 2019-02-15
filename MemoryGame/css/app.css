@@ -1,0 +1,269 @@
+html {
+   box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+   box-sizing: inherit;
+}
+
+html,
+body {
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   background: white url('../img/geometry.png');
+   font-family: Coda, cursive;
+}
+
+.container {
+   display: flex;
+   flex-flow: column wrap;
+   justify-content: center;
+   align-items: center;
+   padding: 20px;
+}
+
+h1 {
+   font-weight: 300;
+}
+
+.show {
+   visibility: visible !important;
+   opacity: 1 !important;
+}
+
+.score-panel {
+   display: flex;
+   flex-flow: row wrap;
+   text-align: left;
+   margin-bottom: 10px;
+}
+
+.stars {
+   padding: 0;
+}
+
+.stars li {
+   list-style: none;
+   display: inline-block;
+}
+
+.fa-star {
+   color: #ccc;
+}
+
+.fa-star.shine {
+   color: #ffde00;
+}
+
+.score-panel .restart {
+   float: right;
+   cursor: pointer;
+}
+
+.stars,
+.moves,
+.timer {
+   margin: 0 15px;
+}
+
+.deck {
+   width: 700px;
+   max-width: 100%;
+   min-height: 700px;
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: space-around;
+   align-items: center;
+   background: linear-gradient(-35deg, #fba11a 0%, #aa7ecd 70%);
+   padding: 20px;
+   border-radius: 10px;
+   box-sizing: border-box;
+   box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+   margin: 0 0 3em;
+}
+
+.deck .card {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100px;
+   height: 100px;
+   background-image: url('../img/Udacity_logo.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   font-size: 0;
+   color: white;
+   cursor: pointer;
+   border-radius: 10px;
+   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+   margin: 20px;
+}
+
+.deck .card.open {
+   transform: rotateY(0);
+   background: #02b3e4;
+   cursor: default;
+   animation-name: flipInY;
+   animation-duration: .75s;
+}
+
+.deck .card.show {
+   font-size: 32px;
+}
+
+.deck .card.match {
+   cursor: default;
+   background: #02ccba;
+   font-size: 32px;
+   animation-name: pulse;
+   animation-duration: .75s;
+}
+
+.deck .card.unmatched {
+   animation-name: rubberBand;
+   animation-duration: .75s;
+   background: #e2043b;
+}
+
+.deck .card.disabled {
+   pointer-events: none;
+}
+
+
+/* Congrats Popup */
+
+#congrats-popup {
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   display: flex;
+   flex-flow: column wrap;
+   align-items: center;
+   justify-content: center;
+   background-image: url('../img/deckbg.png');
+   visibility: hidden;
+   opacity: 0;
+}
+
+#congrats-popup .popup {
+   background: white;
+   margin: 20px;
+   padding: 40px;
+   border-radius: 10px;
+   text-align: center;
+}
+
+#congrats-popup h2 {
+   margin: 0;
+}
+
+#congrats-popup .summary {
+   margin: 40px 0;
+   font-size: 1.25rem;
+}
+
+#play-again {
+   background-color: #2e3d49;
+   font-size: 1.25rem;
+   color: white;
+   padding: 10px 20px;
+   border-radius: 10px;
+   border: none;
+}
+
+#play-again:hover {
+   background-color: #02ccba;
+   cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+   .deck {
+      padding: 45px;
+   }
+   .deck .card {
+      width: 125px;
+      height: 125px;
+      margin: 0;
+   }
+}
+
+
+/* Animações */
+
+@keyframes flipInY {
+   from {
+      transform: perspective(100px) rotate3d(1, 1, 1, 90deg);
+      animation-timing-function: ease-in;
+      opacity: 0;
+   }
+   40% {
+      transform: perspective(100px) rotate3d(1, 1, 1, -20deg);
+      animation-timing-function: ease-in;
+   }
+   60% {
+      transform: perspective(100px) rotate3d(1, 1, 1, 10deg);
+      opacity: 1;
+   }
+   80% {
+      transform: perspective(100px) rotate3d(1, 1, 1, 0deg);
+   }
+   to {
+      transform: perspective(100px);
+   }
+}
+
+@keyframes rubberBand {
+   from {
+      transform: scale3d(1, 1, 1);
+   }
+   30% {
+      transform: scale3d(1.50, 0.75, 1);
+   }
+   40% {
+      transform: scale3d(0.75, 1.25, 1);
+   }
+   50% {
+      transform: scale3d(1.25, 0.85, 1);
+   }
+   65% {
+      transform: scale3d(.85, 1.05, 1);
+   }
+   75% {
+      transform: scale3d(1.05, .95, 1);
+   }
+   to {
+      transform: scale3d(1, 1, 1);
+   }
+}
+
+@keyframes pulse {
+   from {
+      transform: perspective(100px) rotate3d(1, 1, 1, -90deg);
+      animation-timing-function: ease-in;
+      opacity: 0;
+   }
+   40% {
+      transform: perspective(100px) rotate3d(1, 1, 1, 20deg);
+      animation-timing-function: ease-in;
+   }
+   60% {
+      transform: perspective(100px) rotate3d(1, 1, 1, -10deg);
+      opacity: 1;
+   }
+   80% {
+      transform: perspective(100px) rotate3d(1, 1, 1, 0deg);
+   }
+   to {
+      transform: perspective(100px);
+   }
+}
