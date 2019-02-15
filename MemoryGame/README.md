@@ -1,4 +1,4 @@
-# Memory 
+# Memory Game
 
 ##### What is it? 
 It's a game for testing the gamer memory.
